@@ -22,10 +22,10 @@ public class CFGSpecificFormatParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-       System.out.println("Original Grammar:");
+        System.out.println("Original Grammar:");
         printGrammar(grammar);
-        
-     // Convert to CNF
+            
+        // Convert to CNF
         CNFConverter converter = new CNFConverter(grammar);
         ArrayList<ArrayList<String>> cnfGrammar = converter.convertToCNF();
 
