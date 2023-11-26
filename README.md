@@ -18,14 +18,14 @@ S -> f, C\
 C -> d, S\
 
 ## To Do
-Add eliminate null function
-Add eliminate unit function
-fix convert to binary function
-fix convert pair to binary function
-Add input requirements to README
-Come up with good test cases
-Test on all test cases
+Add eliminate null function\
+Add eliminate unit function\
+fix convert to binary function\
+fix convert pair to binary function\
+Add input requirements to README\
+Come up with good test cases\
+Test on all test cases\
 
 ## To Do (optional)
-Add remove nested start variable function
-Add comman line argument parsing for input .txt file
+Add remove nested start variable function\
+Add comman line argument parsing for input .txt file\
