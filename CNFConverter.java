@@ -1,32 +1,40 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 
 //converts Grammar to CNF
 public class CNFConverter {
-	 private ArrayList<ArrayList<String>> grammar;
+    HashMap<String, ArrayList<ArrayList<String>>> grammar;
 
-	    CNFConverter(ArrayList<ArrayList<String>> grammar) {
-	        this.grammar = grammar;
-	    }
-	    ArrayList<ArrayList<String>> convertToCNF() {
-	        eliminateNull();
-	        eliminateUnit();
-	        convertToBinary();
-	        return grammar;
-	    }
-	    private void eliminateNull() {
-	        // Implementation...
-	    }
-	    private void eliminateUnit() {
-	        // Implementation...
-	    }
+	// Parses input file, assigns to grammar
+    public CNFConverter(HashMap<String, ArrayList<ArrayList<String>>> grammar) {
+        this.grammar = grammar;
+    }
 
-	    private void convertToBinary() {
-	        // Implementation...
-	    
-		}
+    public static void main(String[] args) {
+        String fileName = "input2.txt";
+        CFGHashMapParser parser = new CFGHashMapParser();
+        HashMap<String, ArrayList<ArrayList<String>>> grammar = parser.parseFile(fileName);
 
+        CNFConverter converter = new CNFConverter(grammar);
+        converter.convertToCNF();
+    }
+
+    public void convertToCNF() {
+        eliminateNull();
+        eliminateUnit();
+        convertToBinary();
+        // save to output txt file
+    }
+
+    private void eliminateNull() {
+        // Implementation...
+    }
+
+    private void eliminateUnit() {
+        // Implementation...
+    }
+
+    private void convertToBinary() {
+        // Implementation...
+    }
 }

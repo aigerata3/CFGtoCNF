@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CFGHashMapParser {
-    public static void main(String[] args) {
-        String fileName = "input.txt";
+    // Parses file, prints it out, returns grammar as hashmap
+    public HashMap<String, ArrayList<ArrayList<String>>> parseFile(String fileName) {
         HashMap<String, ArrayList<ArrayList<String>>> grammar = new HashMap<>();
-
+        
         try {
             FileReader fileReader = new FileReader(fileName);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -29,8 +29,10 @@ public class CFGHashMapParser {
 
         System.out.println("Parsed Grammar:");
         printGrammar(grammar);
-    }
+        return grammar;
+    }        
 
+    // Parses right hand side, returns list of terms
     private static ArrayList<String> parseProduction(String part) {
         String[] symbols = part.split(",");
         ArrayList<String> production = new ArrayList<>();
@@ -40,6 +42,7 @@ public class CFGHashMapParser {
         return production;
     }
 
+    // Prints the hashmap grammar
     private static void printGrammar(HashMap<String, ArrayList<ArrayList<String>>> grammar) {
         for (String key : grammar.keySet()) {
             System.out.println("Key: " + key + ", Value: " + grammar.get(key));
