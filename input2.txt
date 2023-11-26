@@ -1,0 +1,5 @@
+S -> a2,S,B
+B -> t,T,T,g13
+B -> B
+T -> b
+T -> lambda

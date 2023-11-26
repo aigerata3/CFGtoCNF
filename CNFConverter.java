@@ -3,6 +3,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 //converts Grammar to CNF
 public class CNFConverter {
@@ -10,14 +12,14 @@ public class CNFConverter {
 	 private HashMap<String,ArrayList<ArrayList<String>>> grammar;
 
 	/*
-	    CNFConverter(ArrayList<ArrayList<String>> grammar) {
-	        this.grammar = grammar;
-	    }*/
+	CNFConverter(ArrayList<ArrayList<String>> grammar) {
+		this.grammar = grammar;
+	}*/
 
-	
-	  public CNFConverter(HashMap<String,ArrayList<ArrayList<String>>> grammar) {
-	        this.grammar = grammar;
-	    }
+
+	public CNFConverter(HashMap<String,ArrayList<ArrayList<String>>> grammar) {
+		this.grammar = grammar;
+	}
 	
 	HashMap<String,ArrayList<ArrayList<String>>> convertToCNF() {
 	        eliminateNull();
@@ -27,22 +29,22 @@ public class CNFConverter {
 	}
 		
 	/*ArrayList<ArrayList<String>> convertToCNF() {
-	        eliminateNull();
-	        eliminateUnit();
-	        convertToBinary();
-	        return grammar;
-	    }*/
+		eliminateNull();
+		eliminateUnit();
+		convertToBinary();
+		return grammar;
+	}*/
 
-	    private void eliminateNull() {
-	        // Implementation...
-	    }
-	    private void eliminateUnit() {
-	        // Implementation...
-	    }
+	private void eliminateNull() {
+		// Implementation...
+	}
+	private void eliminateUnit() {
+		// Implementation...
+	}
 
-	    private void convertToBinary() {
-	        // Implementation...
-		}
+	private void convertToBinary() {
+		// Implementation...
+	}
 	
 	private void convertPairToBinary() {
 
