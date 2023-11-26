@@ -6,17 +6,33 @@ import java.util.Arrays;
 
 //converts Grammar to CNF
 public class CNFConverter {
-	 private ArrayList<ArrayList<String>> grammar;
+	 //private ArrayList<ArrayList<String>> grammar;
+	 private HashMap<String,ArrayList<ArrayList<String>>> grammar;
 
+	/*
 	    CNFConverter(ArrayList<ArrayList<String>> grammar) {
 	        this.grammar = grammar;
+	    }*/
+
+	
+	  public CNFConverter(HashMap<String,ArrayList<ArrayList<String>>> grammar) {
+	        this.grammar = grammar;
 	    }
-	    ArrayList<ArrayList<String>> convertToCNF() {
+	
+	HashMap<String,ArrayList<ArrayList<String>>> convertToCNF() {
 	        eliminateNull();
 	        eliminateUnit();
 	        convertToBinary();
 	        return grammar;
-	    }
+	}
+		
+	/*ArrayList<ArrayList<String>> convertToCNF() {
+	        eliminateNull();
+	        eliminateUnit();
+	        convertToBinary();
+	        return grammar;
+	    }*/
+
 	    private void eliminateNull() {
 	        // Implementation...
 	    }
@@ -26,7 +42,9 @@ public class CNFConverter {
 
 	    private void convertToBinary() {
 	        // Implementation...
-	    
+		}
+	private void convertPairToBinary() {
+	        // Implementation...
 		}
 
 }
