@@ -4,3 +4,6 @@ S -> lambda
 A -> c,A,c
 A -> lambda
 B -> d
+A -> l, A
+S -> f, C
+C -> d, S
