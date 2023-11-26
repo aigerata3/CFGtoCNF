@@ -7,15 +7,15 @@ Each terminal may be a lowercase letter with any number of digits after it (e.g.
 The left hand side and right hand side should be separated by a an arrow ("->") and the symbols on the right hand side should be separated by commas (',').
 
 ## Example input
-S -> a,S,a
-S -> b,S,b
-S -> lambda
-A -> c,A,c
-A -> lambda
-B -> d
-A -> l, A
-S -> f, C
-C -> d, S
+S -> a,S,a<br>
+S -> b,S,b<br>
+S -> lambda<br>
+A -> c,A,c<br>
+A -> lambda<br>
+B -> d<br>
+A -> l, A<br>
+S -> f, C<br>
+C -> d, S<br>
 
 ## To Do
 Add eliminate null function
