@@ -12,16 +12,16 @@ public class BinaryProductionConverter {
 	public HashMap<String, ArrayList<ArrayList<String>>> convertBinary() {
 		// Create new grammar
 		HashMap<String, ArrayList<ArrayList<String>>> newGrammar = new HashMap<>();
-		int suffix = 0;
 
 		// For each variable
 		for (String lhs : grammar.keySet()) {
 			// System.out.println("LHS: " + lhs);
-			// For every variable's production
+			// For each production for this variable
 			for (ArrayList<String> rhs : grammar.get(lhs)) {
 				// System.out.println("RHS: " + rhs);
 				// If the right hand side is longer than two terms
 				if (rhs.size() > 2) {
+					int suffix = 0;
 					// Create a new left hand side
 					String newLhs = lhs;
 					while (rhs.size() > 1) {
@@ -31,7 +31,7 @@ public class BinaryProductionConverter {
 						// Make sure the new variable is unique
 						String newVariable;
 						do {
-							newVariable = newLhs + suffix++;
+							newVariable = newLhs.charAt(0) + String.valueOf(suffix++);
 						} while (newGrammar.containsKey(newVariable));
 
 						// Create new right hand side list
