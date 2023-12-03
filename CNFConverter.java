@@ -3,54 +3,78 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 //converts Grammar to CNF
 public class CNFConverter {
-	 //private ArrayList<ArrayList<String>> grammar;
-	 private HashMap<String,ArrayList<ArrayList<String>>> grammar;
-
-	/*
-	CNFConverter(ArrayList<ArrayList<String>> grammar) {
-		this.grammar = grammar;
-	}*/
-
+	//private ArrayList<ArrayList<String>> grammar;
+	private HashMap<String,ArrayList<ArrayList<String>>> grammar;
 
 	public CNFConverter(HashMap<String,ArrayList<ArrayList<String>>> grammar) {
 		this.grammar = grammar;
 	}
 	
 	HashMap<String,ArrayList<ArrayList<String>>> convertToCNF() {
-	        eliminateNull();
+	        // eliminateNull();
 	        eliminateUnit();
-	        convertToBinary();
+	        // convertToBinary();
+			// convertPairToBinary();
 	        return grammar;
 	}
-		
-	/*ArrayList<ArrayList<String>> convertToCNF() {
-		eliminateNull();
-		eliminateUnit();
-		convertToBinary();
-		return grammar;
-	}*/
 
+	// Vicki's Function
 	private void eliminateNull() {
 		// Implementation...
 	}
+
+	// Erin's Function
 	private void eliminateUnit() {
-		// Implementation...
+		// New grammar to replace the old one
+		HashMap<String, ArrayList<ArrayList<String>>> newGrammar = new HashMap<>();
+
+		// For each variable in the original grammar (We'll call this variable A)
+		for (String lhs : grammar.keySet()) {
+			// Create a new list of productions
+			ArrayList<ArrayList<String>> newProductions = new ArrayList<>();
+			// For production for this variable 
+			for (ArrayList<String> rhs : grammar.get(lhs)) {
+				// Check for unit production (single uppercase character)
+				if (rhs.size() == 1 && Character.isUpperCase(rhs.get(0).charAt(0))) {
+					// Unit production A -> B found, add B's productions to A
+					// Ger variable as string
+					String rhsVariable = rhs.get(0);
+					// Get all productions for B (rhsVariable)
+					ArrayList<ArrayList<String>> rhsProductions = grammar.getOrDefault(rhsVariable,
+							new ArrayList<ArrayList<String>>());
+
+					// Add all productions of B to A's new productions
+					newProductions.addAll(rhsProductions);
+				} else {
+					// Keep the original non-unit production
+					newProductions.add(rhs);
+				}
+			}
+			// Update the new grammar with the new productions for A
+			newGrammar.put(lhs, newProductions);
+		}
+		// Replace the old grammar with the new one
+		grammar = newGrammar;
 	}
 
+	// Rachel's function
 	private void convertToBinary() {
 		// Create new grammar
 		HashMap<String, ArrayList<ArrayList<String>>> newGrammar = new HashMap<>();
 		int suffix = 0;
 
-		// For Variable
+		// For each variable
 		for (String lhs : grammar.keySet()) {
 			// System.out.println("LHS: " + lhs);
-			//
+			// For every variable's production
 			for (ArrayList<String> rhs : grammar.get(lhs)) {
 				// System.out.println("RHS: " + rhs);
 				// If the right hand side is longer than two terms
@@ -91,7 +115,6 @@ public class CNFConverter {
 	}
 	
 	private void convertPairToBinary() {
-
 	    	//idea: Convert S->a,B to S->AB and A ->a
 	    	
 	    	//NewProduc to Store new production 

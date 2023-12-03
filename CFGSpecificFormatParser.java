@@ -26,14 +26,14 @@ public class CFGSpecificFormatParser {
             e.printStackTrace();
         }
 
-        printGrammar(grammar);
+        // printGrammar(grammar);
         
         // Convert to CNF
         CNFConverter converter = new CNFConverter(grammar);
         HashMap<String,ArrayList<ArrayList<String>>> cnfGrammar = converter.convertToCNF();
 
-        System.out.println("Grammar in CNF:");
-        printGrammar(cnfGrammar);
+        // System.out.println("Grammar in CNF:");
+        // printGrammar(cnfGrammar);
     }
 
     private static Map.Entry<String, ArrayList<String>> parseProduction(String line) {
