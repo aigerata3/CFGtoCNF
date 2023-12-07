@@ -9,7 +9,7 @@ public class NullProductionEliminator {
         this.grammar = grammar;
     }
 
-    // Vicki's Function
+    // Vicki's Function's
 	// Gets all the unit productions for a variable and adds them to a set
 	private void getVarsThatLeadToNull(HashSet<String> nullSet) {
         // For each variable A in the grammar
@@ -17,11 +17,11 @@ public class NullProductionEliminator {
             // If that variable A leads to a null variable in the set or lambda
             for (ArrayList<String> rhs : grammar.get(lhs)) {
                 // If lambda
-                if (rhs.get(0) == "lambda") {
-                    nullSet.add(rhs.get(0));
+                if (rhs.get(0).equals("lambda")) {
+                    nullSet.add(lhs);
                 // Or if null variable
                 } else if (rhs.size() == 1 && nullSet.contains(rhs.get(0))) {
-                    nullSet.add(rhs.get(0));
+                    nullSet.add(lhs);
                 }
             }
         }
@@ -29,8 +29,15 @@ public class NullProductionEliminator {
 
     // Returns true if the production contains a nullable variable
     private boolean containsNullVariables(ArrayList<String> rhs, HashSet<String> nullSet) {
+        System.out.println();
+        System.out.println("IN CONTAINS NULLABLE VARIABLES. CHECKING");
+        System.out.println(rhs);
         for (String symbol : rhs) {
-            return nullSet.contains(symbol);
+            System.out.println(symbol);
+            if (nullSet.contains(symbol) || symbol.equals("lambda")) {
+                System.out.println("SYMBOL IS NULLABLE");
+                return true;
+            }
         }
         return false;
     }
@@ -64,7 +71,9 @@ public class NullProductionEliminator {
                 }
             }
             // Add the new list to nullies
-            nullies.add(currentNullification);
+            if (currentNullification.size() > 0) {
+                nullies.add(currentNullification);
+            }
         }
 
         return nullies;
@@ -100,13 +109,16 @@ public class NullProductionEliminator {
         HashSet<String> currNullProdSet = new HashSet<>();
         // do while prev set is different from current set
         do {
-            System.out.println("In do while.");
             // Deep copy current set, assign to prev set
             prevNullProdSet = new HashSet<String>(currNullProdSet);
             // Add next group of null productions
             getVarsThatLeadToNull(currNullProdSet);
         } while (!currNullProdSet.equals(prevNullProdSet));
 
+        System.out.println();
+        System.out.println("Nullable variables");
+        System.out.println(currNullProdSet);
+        System.out.println();
 
         // For each production
         for (String lhs : grammar.keySet()) {
@@ -118,34 +130,52 @@ public class NullProductionEliminator {
                     // Add unit production that account for all possible nullifications
                     ArrayList<ArrayList<String>> nullifications = getNullifications(rhs, currNullProdSet);
                     // Add nullifications to the new rhs list
+                    System.out.println("Adding nullifications:");
                     newRhs.addAll(nullifications);
+                    System.out.println(nullifications);
                 } else {
+                    System.out.println("Adding old rhs");
                     newRhs.add(rhs);
+                    System.out.println(rhs);
                 }
+                System.out.println("Updated new rhs for");
+                System.out.println(lhs);
+                System.out.println(newRhs);
+                
 			}
+            System.out.println();
 			// Add new rhs to the new grammar 
 			newGrammar.put(lhs, newRhs);
 		}
 
-        // Remove all lambdas
+        // Remove all single nullable productions
+        System.out.println("REMOVING LAST NULLS");
+        HashMap<String, ArrayList<ArrayList<String>>> newNewGrammar = new HashMap<>();
         // For each variable A in the grammar
-        for (String lhs : grammar.keySet()) {
+        for (String lhs : newGrammar.keySet()) {
+            System.out.println("FOR LHS");
+            System.out.println(lhs);
             // Create a new rhs list
             ArrayList<ArrayList<String>> newRhs = new ArrayList<>();
             // For each production from the RHS, add to the set
-            for (ArrayList<String> rhs : grammar.get(lhs)) {
-                // If it is NOT a lambda production
-                if (rhs.get(0) != "lambda") {
+            for (ArrayList<String> rhs : newGrammar.get(lhs)) {
+                System.out.println("FOR RHS");
+                System.out.println(rhs);
+                // If it is NOT a lambda production or single nullable variable
+                if (!rhs.get(0).equals("lambda") && (rhs.size() > 1 || 
+                    Character.isLowerCase(rhs.get(0).charAt(0)))) {
+                    System.out.println("PUT BACK IN");
                     // Add production to the new rhs
                     newRhs.add(rhs);
                 }
             }
             // Add new rhs to the new grammar if it's not empty
             if (newRhs.size() > 0) {
-                newGrammar.put(lhs, newRhs);
-            }
+                newNewGrammar.put(lhs, newRhs);
+            }         
+            System.out.println();
         }
 
-        return newGrammar;
+        return newNewGrammar;
 	}
 }
