@@ -12,13 +12,15 @@ public class UnitProductionEliminator {
     // Erin's Functions
 	// Get rid of all unit prods (run the eliminateUnit function until the output doesn't change)
 	public HashMap<String, ArrayList<ArrayList<String>>> eliminateUnit() {
+		System.out.println("UNITS");
 		HashMap<String, ArrayList<ArrayList<String>>> previousGrammar;
 		do {
 			previousGrammar = deepCopy(grammar); // Deep copy the current state of grammar
 			eliminateUnitLevel(); // Apply the unit elimination
-			// printGrammar(previousGrammar);
-			// printGrammar(grammar);
-			// System.out.println();
+			System.out.println();
+			printGrammar(previousGrammar);
+			printGrammar(grammar);
+			System.out.println();
 		} while (!grammar.equals(previousGrammar)); // Continue until no change
         return grammar;
 	}
@@ -38,10 +40,8 @@ public class UnitProductionEliminator {
 				ArrayList<String> listCopy = new ArrayList<>(list); 
 				valueCopy.add(listCopy);
 			}
-
 			copy.put(key, valueCopy);
 		}
-
 		return copy;
 	}
 
@@ -54,7 +54,7 @@ public class UnitProductionEliminator {
 		for (String lhs : grammar.keySet()) {
 			// Create a new list of productions
 			ArrayList<ArrayList<String>> newProductions = new ArrayList<>();
-			// For production for this variable 
+			// For each production for this variable 
 			for (ArrayList<String> rhs : grammar.get(lhs)) {
 				// Check for unit production (single uppercase character)
 				if (rhs.size() == 1 && Character.isUpperCase(rhs.get(0).charAt(0))) {
@@ -65,8 +65,14 @@ public class UnitProductionEliminator {
 					ArrayList<ArrayList<String>> rhsProductions = grammar.getOrDefault(rhsVariable,
 							new ArrayList<ArrayList<String>>());
 
+					// Add all productions of B to A's new productions if not already present
+					for (ArrayList<String> prod : rhsProductions) {
+						if (!newProductions.contains(prod)) {
+							newProductions.add(prod);
+						}
+					}		
 					// Add all productions of B to A's new productions
-					newProductions.addAll(rhsProductions);
+					// newProductions.addAll(rhsProductions);
 				} else {
 					// Keep the original non-unit production
 					newProductions.add(rhs);
@@ -77,5 +83,12 @@ public class UnitProductionEliminator {
 		}
 		// Replace the old grammar with the new one
 		grammar = newGrammar;
+	}
+
+	private static void printGrammar(HashMap<String, ArrayList<ArrayList<String>>> grammar) {
+		System.out.println("Parsed Grammar:");
+		for (Map.Entry<String, ArrayList<ArrayList<String>>> entry : grammar.entrySet()) {
+			System.out.println(entry.getKey() + " -> " + entry.getValue());
+		}
 	}
 }
