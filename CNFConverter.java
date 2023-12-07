@@ -16,6 +16,7 @@ public class CNFConverter {
 		grammar = new UnitProductionEliminator(grammar).eliminateUnit();
 		grammar = new BinaryProductionConverter(grammar).convertBinary();
 		grammar = new SingleTerminalConverter(grammar).convertTerminal();
+		grammar = new RedundantRemover(grammar).convertTerminal();
 		return grammar;
 	}
 
