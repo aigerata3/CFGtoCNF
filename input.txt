@@ -4,8 +4,10 @@ S -> lambda
 A -> c,A,c
 A -> lambda
 B -> d
-A -> l, A
-S -> f, C
-C -> d, S
+A -> l,A
+S -> f,C
+C -> d,S
 D -> C
 E -> D
+B -> S,A,b
+B -> S
