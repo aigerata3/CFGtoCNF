@@ -27,7 +27,7 @@ public class SingleTerminalConverter {
 		// For each variable
 		for (String lhs : grammar.keySet()) {
 			// If the variable only has one production (i.e. A -> x, rather than A -> b | cd)
-			if (grammar.get(lhs).size() == 1) {
+			if (grammar.get(lhs).size() == 1 && grammar.get(lhs).get(0).size() == 1) {
 				// Get production
 				prod = grammar.get(lhs).get(0).get(0);
 				// If that production is a single terminal (test first character since
