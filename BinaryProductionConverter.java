@@ -18,13 +18,12 @@ public class BinaryProductionConverter {
 			// System.out.println("LHS: " + lhs);
 			// For each production for this variable
 			for (ArrayList<String> rhs : grammar.get(lhs)) {
-				// System.out.println("RHS: " + rhs);
 				// If the right hand side is longer than two terms
 				if (rhs.size() > 2) {
-					int suffix = 0;
+					int suffix = 1;
 					// Create a new left hand side
 					String newLhs = lhs;
-					while (rhs.size() > 1) {
+					while (rhs.size() > 2) {
 						// Make a new variable for the production
 						String newRhsFirstSymbol = rhs.remove(0);
 
