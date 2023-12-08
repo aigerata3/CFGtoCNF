@@ -109,15 +109,4 @@ public class SingleTerminalConverter {
 
 		return newGrammar;
 	}
-
-	// private boolean containsSingleTerminal(ArrayList<ArrayList<String>> productions) {
-	// 	// If there's only one production
-	// 	if (productions.size() == 1) {
-	// 		// If that production is a terminal (if its first character is lower case)
-	// 		if (Character.isLowerCase(productions.get(0).get(0).charAt(0))) {
-	// 			return true;
-	// 		}
-	// 	}
-	// 	return false;
-	// }
 }
