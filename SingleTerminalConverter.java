@@ -92,8 +92,8 @@ public class SingleTerminalConverter {
 				newProd = new ArrayList<>();
 				// Check each symbol in the production. 
 				for (String symbol : rhs) {
-					// If it's a terminal, replace with that terminal's variable
-					if (Character.isLowerCase(symbol.charAt(0))) {
+					// If it's a terminal in a string, replace with that terminal's variable
+					if (Character.isLowerCase(symbol.charAt(0)) && rhs.size() > 1) {
 						newProd.add(handledTerminals.get(symbol));
 					} else {
 						// Otherwise, keep it in the production

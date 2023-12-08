@@ -1,6 +1,8 @@
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -10,7 +12,8 @@ import java.util.Map;
 
 public class CFGParser {
     public static void main(String[] args) {
-        String fileName = "input.txt";
+        // Use the first command line argument as the input file, or default to "input.txt"
+        String fileName = (args.length > 0) ? args[0] : "input.txt"; 
         HashMap<String, ArrayList<ArrayList<String>>> grammar = new HashMap<>();
 
         try {
@@ -31,6 +34,8 @@ public class CFGParser {
         // Convert to CNF
         CNFConverter converter = new CNFConverter(grammar);
         HashMap<String,ArrayList<ArrayList<String>>> cnfGrammar = converter.convertToCNF();
+        // Output new grammar to output file
+        printGrammarToFile(cnfGrammar, "output.txt");
 
         System.out.println("Grammar in CNF:");
         printGrammar(cnfGrammar);
@@ -46,6 +51,23 @@ public class CFGParser {
             return new AbstractMap.SimpleEntry<>(key, value);
         }
         return null;
+    }
+
+    private static void printGrammarToFile(HashMap<String, ArrayList<ArrayList<String>>> grammar, String outputFileName) {
+        try {
+            FileWriter fileWriter = new FileWriter(outputFileName);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            bufferedWriter.write("Parsed Grammar:\n");
+            for (Map.Entry<String, ArrayList<ArrayList<String>>> entry : grammar.entrySet()) {
+                bufferedWriter.write(entry.getKey() + " -> " + entry.getValue() + "\n");
+            }
+
+            bufferedWriter.close();
+            System.out.println("Output written to " + outputFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void printGrammar(HashMap<String, ArrayList<ArrayList<String>>> grammar) {
