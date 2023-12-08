@@ -18,8 +18,8 @@ public class CNFConverter {
 		printGrammar(grammar);
 		grammar = new BinaryProductionConverter(grammar).convertBinary();
 		printGrammar(grammar);
-		// grammar = new SingleTerminalConverter(grammar).convertTerminal();
-		grammar = new RedundantRemover(grammar).removeRedundants();
+		grammar = new SingleTerminalConverter(grammar).convertTerminal();
+		// grammar = new RedundantRemover(grammar).removeRedundants();
 		printGrammar(grammar);
 		return grammar;
 	}
