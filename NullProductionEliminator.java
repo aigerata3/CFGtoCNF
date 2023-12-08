@@ -29,13 +29,8 @@ public class NullProductionEliminator {
 
     // Returns true if the production contains a nullable variable
     private boolean containsNullVariables(ArrayList<String> rhs, HashSet<String> nullSet) {
-        System.out.println();
-        System.out.println("IN CONTAINS NULLABLE VARIABLES. CHECKING");
-        System.out.println(rhs);
         for (String symbol : rhs) {
-            System.out.println(symbol);
             if (nullSet.contains(symbol) || symbol.equals("lambda")) {
-                System.out.println("SYMBOL IS NULLABLE");
                 return true;
             }
         }
@@ -115,11 +110,6 @@ public class NullProductionEliminator {
             getVarsThatLeadToNull(currNullProdSet);
         } while (!currNullProdSet.equals(prevNullProdSet));
 
-        System.out.println();
-        System.out.println("Nullable variables");
-        System.out.println(currNullProdSet);
-        System.out.println();
-
         // For each production
         for (String lhs : grammar.keySet()) {
 			// Create a new rhs list
@@ -130,41 +120,26 @@ public class NullProductionEliminator {
                     // Add unit production that account for all possible nullifications
                     ArrayList<ArrayList<String>> nullifications = getNullifications(rhs, currNullProdSet);
                     // Add nullifications to the new rhs list
-                    System.out.println("Adding nullifications:");
                     newRhs.addAll(nullifications);
-                    System.out.println(nullifications);
                 } else {
-                    System.out.println("Adding old rhs");
                     newRhs.add(rhs);
-                    System.out.println(rhs);
-                }
-                System.out.println("Updated new rhs for");
-                System.out.println(lhs);
-                System.out.println(newRhs);
-                
+                }               
 			}
-            System.out.println();
 			// Add new rhs to the new grammar 
 			newGrammar.put(lhs, newRhs);
 		}
 
         // Remove all single nullable productions
-        System.out.println("REMOVING LAST NULLS");
         HashMap<String, ArrayList<ArrayList<String>>> newNewGrammar = new HashMap<>();
         // For each variable A in the grammar
         for (String lhs : newGrammar.keySet()) {
-            System.out.println("FOR LHS");
-            System.out.println(lhs);
             // Create a new rhs list
             ArrayList<ArrayList<String>> newRhs = new ArrayList<>();
             // For each production from the RHS, add to the set
             for (ArrayList<String> rhs : newGrammar.get(lhs)) {
-                System.out.println("FOR RHS");
-                System.out.println(rhs);
                 // If it is NOT a lambda production or single nullable variable
                 if (!rhs.get(0).equals("lambda") && (rhs.size() > 1 || 
                     Character.isLowerCase(rhs.get(0).charAt(0)))) {
-                    System.out.println("PUT BACK IN");
                     // Add production to the new rhs
                     newRhs.add(rhs);
                 }
