@@ -23,8 +23,7 @@ public class CNFConverter {
 		printGrammar(grammar);
 		System.out.println("Binary finished. Converting single terminals.");
 		grammar = new SingleTerminalConverter(grammar).convertTerminal();
-		printGrammar(grammar);
-		System.out.println("Done.");
+		grammar = new RedundantRemover(grammar).convertTerminal();
 		return grammar;
 	}
 
