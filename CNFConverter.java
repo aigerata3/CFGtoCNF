@@ -22,7 +22,7 @@ public class CNFConverter {
 		grammar = new BinaryProductionConverter(grammar).convertBinary();
 		printGrammar(grammar);
 		System.out.println("Binary finished. Converting single terminals.");
-		// grammar = new SingleTerminalConverter(grammar).convertTerminal();
+		grammar = new SingleTerminalConverter(grammar).convertTerminal();
 		grammar = new RedundantRemover(grammar).removeRedundants();
 		return grammar;
 	}
