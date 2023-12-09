@@ -12,18 +12,14 @@ public class CNFConverter {
 	}
 	
 	HashMap<String,ArrayList<ArrayList<String>>> convertToCNF() {
-		System.out.println("Eliminating null...");
 	    grammar = new NullProductionEliminator(grammar).eliminateNull();
 		printGrammar(grammar);
-		System.out.println("Nulls eliminated. Eliminating Units.");
 		grammar = new UnitProductionEliminator(grammar).eliminateUnit();
 		printGrammar(grammar);
-		System.out.println("Units eliminated. Converting to binary.");
 		grammar = new BinaryProductionConverter(grammar).convertBinary();
 		printGrammar(grammar);
-		System.out.println("Binary finished. Converting single terminals.");
 		grammar = new SingleTerminalConverter(grammar).convertTerminal();
-		grammar = new RedundantRemover(grammar).removeRedundants();
+		printGrammar(grammar);
 		return grammar;
 	}
 
