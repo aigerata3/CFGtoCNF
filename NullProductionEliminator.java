@@ -65,8 +65,8 @@ public class NullProductionEliminator {
                     currentNullification.add(rhs.get(i));
                 }
             }
-            // Add the new list to nullies
-            if (currentNullification.size() > 0) {
+            // Add the new list to nullies if it's not in there already
+            if (currentNullification.size() > 0 && !nullies.contains(currentNullification)) {
                 nullies.add(currentNullification);
             }
         }
@@ -74,7 +74,7 @@ public class NullProductionEliminator {
         return nullies;
     }
 
-    // Shamelessly stolen from the innernet
+    // Shamelessly stolen from the innernet - return the powerset of originalSet
     private HashSet<HashSet<Integer>> getAllSubsets(HashSet<Integer> originalSet) {
         HashSet<HashSet<Integer>> allSubsets = new HashSet<>();
         ArrayList<Integer> elementList = new ArrayList<>(originalSet);
@@ -98,6 +98,7 @@ public class NullProductionEliminator {
 		// Create new grammar
 		HashMap<String, ArrayList<ArrayList<String>>> newGrammar = new HashMap<>();
 
+        // Find set of lambda productions
         // Make a set prev
         HashSet<String> prevNullProdSet = new HashSet<>();
         // Make set current
@@ -128,18 +129,18 @@ public class NullProductionEliminator {
 			// Add new rhs to the new grammar 
 			newGrammar.put(lhs, newRhs);
 		}
-
+        
         // Remove all single nullable productions
         HashMap<String, ArrayList<ArrayList<String>>> newNewGrammar = new HashMap<>();
-        // For each variable A in the grammar
+        // For each variable in the grammar
         for (String lhs : newGrammar.keySet()) {
             // Create a new rhs list
             ArrayList<ArrayList<String>> newRhs = new ArrayList<>();
             // For each production from the RHS, add to the set
             for (ArrayList<String> rhs : newGrammar.get(lhs)) {
                 // If it is NOT a lambda production or single nullable variable
-                if (!rhs.get(0).equals("lambda") && (rhs.size() > 1 || 
-                    Character.isLowerCase(rhs.get(0).charAt(0)))) {
+                if (!rhs.get(0).equals("lambda") &&
+                    !(rhs.size() < 2 && currNullProdSet.contains(rhs.get(0)))) {
                     // Add production to the new rhs
                     newRhs.add(rhs);
                 }
@@ -148,7 +149,6 @@ public class NullProductionEliminator {
             if (newRhs.size() > 0) {
                 newNewGrammar.put(lhs, newRhs);
             }         
-            System.out.println();
         }
 
         return newNewGrammar;

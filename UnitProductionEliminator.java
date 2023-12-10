@@ -51,7 +51,6 @@ public class UnitProductionEliminator {
 		// Make hashmap of Variable: set of unit production (chains)
 		HashMap<String, HashSet<String>> unitProds = new HashMap<>();
 
-		System.out.println("Making Unit Sets.");
 		// For each variable A in the grammar
 		for (String lhs : grammar.keySet()) {
 			// Make a set prev
@@ -63,9 +62,6 @@ public class UnitProductionEliminator {
 			HashSet<String> currUnitSet = new HashSet<>();
 			// do while prev set is different from current set
 			do {
-				// // Make new current set
-				// currUnitSet = new HashSet<>();
-				System.out.println("In do while.");
 				// Deep copy current set, assign to prev set
 				prevUnitSet = new HashSet<String>(currUnitSet);
 				// Add next group of unit productions
@@ -77,8 +73,6 @@ public class UnitProductionEliminator {
 			unitProds.put(lhs, currUnitSet);
 		}
 
-		System.out.println("Replacing units with non units.");
-		// THEN
 		ArrayList<ArrayList<String>> nonUnitProds;
 		// For each variable A in the unit prods hashmap
 		for (String lhs : unitProds.keySet()) {
@@ -92,7 +86,6 @@ public class UnitProductionEliminator {
 			}
 		}
 
-		System.out.println("Removing units.");
 		// Remove all unit productions
 		// For each variable A in the grammar
 		for (String lhs : grammar.keySet()) {
