@@ -12,10 +12,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CFGParser {
-    // Input parser by Aigerim and Rachel
+    // Input parser/output writer by Aigerim and Rachel
     public static void main(String[] args) {
         // Use the command line argument as the input file, or default to "input.txt"
         String fileName = "input.txt";
+        String inputDirectory = "input/";
         boolean verbose = false;
         // Parse command line arguments
         for (String arg : args) {
@@ -25,11 +26,13 @@ public class CFGParser {
                 fileName = arg; // Assuming the other argument is the file name
             }
         }
+        // Make file path
+        String filePath = inputDirectory + fileName;
 
         HashMap<String, ArrayList<ArrayList<String>>> grammar = new HashMap<>();
 
         try {
-            FileReader fileReader = new FileReader(fileName);
+            FileReader fileReader = new FileReader(filePath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
             while ((line = bufferedReader.readLine()) != null) {
