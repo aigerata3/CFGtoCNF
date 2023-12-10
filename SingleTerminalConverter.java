@@ -1,8 +1,6 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 public class SingleTerminalConverter {
     private HashMap<String,ArrayList<ArrayList<String>>> grammar;
