@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CFGParser {
+    // Input parser by Aigerim
     public static void main(String[] args) {
         // Use the first command line argument as the input file, or default to "input.txt"
         String fileName = (args.length > 0) ? args[0] : "input.txt"; 
@@ -29,7 +30,7 @@ public class CFGParser {
             e.printStackTrace();
         }
 
-        printGrammar(grammar);
+        printGrammar(grammar, "Parsed input grammar: ");
         
         // Convert to CNF
         CNFConverter converter = new CNFConverter(grammar);
@@ -37,11 +38,8 @@ public class CFGParser {
         // Output new grammar to output file
         printGrammarToFile(cnfGrammar, "output.txt");
 
-        System.out.println("Grammar in CNF:");
-        printGrammar(cnfGrammar);
+        printGrammar(cnfGrammar, "Grammar in CNF:");
     }
-
-    // WRITE FUNCTION TO CHECK FOR WHITESPACE
 
     private static Map.Entry<String, ArrayList<String>> parseProduction(String line) {
         String[] parts = line.split("->");
@@ -53,12 +51,19 @@ public class CFGParser {
         return null;
     }
 
+    private static void printGrammar(HashMap<String, ArrayList<ArrayList<String>>> grammar, String heading) {
+        System.out.println(heading);
+        for (Map.Entry<String, ArrayList<ArrayList<String>>> entry : grammar.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+    }
+
+    // Output function by Rachel
     private static void printGrammarToFile(HashMap<String, ArrayList<ArrayList<String>>> grammar, String outputFileName) {
         try {
             FileWriter fileWriter = new FileWriter(outputFileName);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            bufferedWriter.write("Parsed Grammar:\n");
             for (Map.Entry<String, ArrayList<ArrayList<String>>> entry : grammar.entrySet()) {
                 bufferedWriter.write(entry.getKey() + " -> " + entry.getValue() + "\n");
             }
@@ -67,13 +72,6 @@ public class CFGParser {
             System.out.println("Output written to " + outputFileName);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private static void printGrammar(HashMap<String, ArrayList<ArrayList<String>>> grammar) {
-        System.out.println("Parsed Grammar:");
-        for (Map.Entry<String, ArrayList<ArrayList<String>>> entry : grammar.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
     }
 }

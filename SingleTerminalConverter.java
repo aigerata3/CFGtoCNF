@@ -21,7 +21,6 @@ public class SingleTerminalConverter {
 		// Keep track of variables to delete (because they are redundant dedicated terminal productions)
 		HashSet<String> varsToDelete = new HashSet<>();
 
-		System.out.println("Finding terms");
 		// Find all terminals that are already handled
 		String prod;
 		// For each variable
@@ -44,7 +43,6 @@ public class SingleTerminalConverter {
 			}
 		}
 
-		System.out.println("Handling rest of terms");
 		// Create new grammar
 		HashMap<String, ArrayList<ArrayList<String>>> newGrammar = new HashMap<>();
 
@@ -80,7 +78,6 @@ public class SingleTerminalConverter {
 			}
 		}
 
-		System.out.println("Replace terms with vars");
 		// Replace terminals with their variables
 		ArrayList<ArrayList<String>> newProdList;
 		ArrayList<String> newProd;
