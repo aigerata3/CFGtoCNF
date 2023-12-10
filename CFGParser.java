@@ -9,12 +9,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CFGParser {
-    // Input parser by Aigerim
+    // Input parser by Aigerim and Rachel
     public static void main(String[] args) {
-        // Use the first command line argument as the input file, or default to "input.txt"
-        String fileName = (args.length > 0) ? args[0] : "input.txt"; 
+        // Use the command line argument as the input file, or default to "input.txt"
+        String fileName = "input.txt";
+        boolean verbose = false;
+        // Parse command line arguments
+        for (String arg : args) {
+            if (arg.equals("--verbose") || arg.equals("-v")) {
+                verbose = true;
+            } else {
+                fileName = arg; // Assuming the other argument is the file name
+            }
+        }
+
         HashMap<String, ArrayList<ArrayList<String>>> grammar = new HashMap<>();
 
         try {
@@ -33,7 +44,7 @@ public class CFGParser {
         printGrammar(grammar, "Parsed input grammar: ");
         
         // Convert to CNF
-        CNFConverter converter = new CNFConverter(grammar);
+        CNFConverter converter = new CNFConverter(grammar, verbose);
         HashMap<String,ArrayList<ArrayList<String>>> cnfGrammar = converter.convertToCNF();
         // Output new grammar to output file
         printGrammarToFile(cnfGrammar, "output.txt");
@@ -54,18 +65,26 @@ public class CFGParser {
     private static void printGrammar(HashMap<String, ArrayList<ArrayList<String>>> grammar, String heading) {
         System.out.println(heading);
         for (Map.Entry<String, ArrayList<ArrayList<String>>> entry : grammar.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
+            // Joining inner lists with commas and outer lists with |
+            String rules = entry.getValue().stream()
+                .map(rule -> String.join(",", rule))
+                .collect(Collectors.joining(" | "));
+            System.out.println(entry.getKey() + " -> " + rules);
         }
     }
 
-    // Output function by Rachel
-    private static void printGrammarToFile(HashMap<String, ArrayList<ArrayList<String>>> grammar, String outputFileName) {
+    private static void printGrammarToFile(HashMap<String, ArrayList<ArrayList<String>>> grammar,
+            String outputFileName) {
         try {
             FileWriter fileWriter = new FileWriter(outputFileName);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             for (Map.Entry<String, ArrayList<ArrayList<String>>> entry : grammar.entrySet()) {
-                bufferedWriter.write(entry.getKey() + " -> " + entry.getValue() + "\n");
+                // Joining inner lists with commas and outer lists with |
+                String rules = entry.getValue().stream()
+                        .map(rule -> String.join(",", rule))
+                        .collect(Collectors.joining(" | "));
+                bufferedWriter.write(entry.getKey() + " -> " + rules + "\n");
             }
 
             bufferedWriter.close();

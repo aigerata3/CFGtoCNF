@@ -148,7 +148,7 @@ public class NullProductionEliminator {
             if (newRhs.size() > 0) {
                 newNewGrammar.put(lhs, newRhs);
             }         
-            System.out.println();
+            // System.out.println();
         }
 
         return newNewGrammar;

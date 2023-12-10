@@ -15,7 +15,6 @@ public class BinaryProductionConverter {
 
 		// For each variable
 		for (String lhs : grammar.keySet()) {
-			// System.out.println("LHS: " + lhs);
 			// For each production for this variable
 			for (ArrayList<String> rhs : grammar.get(lhs)) {
 				// If the right hand side is longer than two terms
