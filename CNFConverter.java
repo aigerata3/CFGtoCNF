@@ -17,10 +17,13 @@ public class CNFConverter {
 		printGrammar(grammar, "\nInput grammar:");
 	    grammar = new NullProductionEliminator(grammar).eliminateNull();
 		printGrammar(grammar, "Null productions eliminated:");
+
 		grammar = new UnitProductionEliminator(grammar).eliminateUnit();
 		printGrammar(grammar, "Unit productions eliminated:");
+
 		grammar = new BinaryProductionConverter(grammar).convertBinary();
 		printGrammar(grammar, "Break up productions longer than two symbols:");
+		
 		grammar = new SingleTerminalConverter(grammar).convertTerminal();
 		printGrammar(grammar, "Make a dedicated production for each terminal:");
 		return grammar;

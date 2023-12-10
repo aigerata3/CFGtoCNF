@@ -65,8 +65,8 @@ public class NullProductionEliminator {
                     currentNullification.add(rhs.get(i));
                 }
             }
-            // Add the new list to nullies
-            if (currentNullification.size() > 0) {
+            // Add the new list to nullies if it's not in there already
+            if (currentNullification.size() > 0 && !nullies.contains(currentNullification)) {
                 nullies.add(currentNullification);
             }
         }
@@ -74,7 +74,7 @@ public class NullProductionEliminator {
         return nullies;
     }
 
-    // Shamelessly stolen from the innernet
+    // Shamelessly stolen from the innernet - return the powerset of originalSet
     private HashSet<HashSet<Integer>> getAllSubsets(HashSet<Integer> originalSet) {
         HashSet<HashSet<Integer>> allSubsets = new HashSet<>();
         ArrayList<Integer> elementList = new ArrayList<>(originalSet);
