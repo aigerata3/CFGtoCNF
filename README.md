@@ -2,12 +2,12 @@
 **Converting Context-Free Grammar (CFG) to Chomsky Normal Form (CNF).**
 
 ## Usage
-### **Compiling the Program:**
+#### **Compiling the Program:**
 Compile all Java files in the directory:
 ```bash
 javac *.java
 ```
-### **Running the Program:**
+#### **Running the Program:**
 Run the program with an input file:
 
 ```bash
@@ -15,7 +15,7 @@ java CFGParser [input-file-name]
 ```
 Replace [input-file-name] with the name of your input file, for example, input.txt.
 
-### **Verbose Mode:**
+#### **Verbose Mode:**
 To run the program in verbose mode, which prints out intermediate steps:
 
 ```bash
