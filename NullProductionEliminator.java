@@ -98,6 +98,7 @@ public class NullProductionEliminator {
 		// Create new grammar
 		HashMap<String, ArrayList<ArrayList<String>>> newGrammar = new HashMap<>();
 
+        // Find set of lambda productions
         // Make a set prev
         HashSet<String> prevNullProdSet = new HashSet<>();
         // Make set current
@@ -128,18 +129,18 @@ public class NullProductionEliminator {
 			// Add new rhs to the new grammar 
 			newGrammar.put(lhs, newRhs);
 		}
-
+        
         // Remove all single nullable productions
         HashMap<String, ArrayList<ArrayList<String>>> newNewGrammar = new HashMap<>();
-        // For each variable A in the grammar
+        // For each variable in the grammar
         for (String lhs : newGrammar.keySet()) {
             // Create a new rhs list
             ArrayList<ArrayList<String>> newRhs = new ArrayList<>();
             // For each production from the RHS, add to the set
             for (ArrayList<String> rhs : newGrammar.get(lhs)) {
                 // If it is NOT a lambda production or single nullable variable
-                if (!rhs.get(0).equals("lambda") && !(rhs.size() < 2 && 
-                    Character.isLowerCase(rhs.get(0).charAt(0)))) {
+                if (!rhs.get(0).equals("lambda") &&
+                    !(rhs.size() < 2 && currNullProdSet.contains(rhs.get(0)))) {
                     // Add production to the new rhs
                     newRhs.add(rhs);
                 }
