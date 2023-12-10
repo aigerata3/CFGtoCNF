@@ -138,7 +138,7 @@ public class NullProductionEliminator {
             // For each production from the RHS, add to the set
             for (ArrayList<String> rhs : newGrammar.get(lhs)) {
                 // If it is NOT a lambda production or single nullable variable
-                if (!rhs.get(0).equals("lambda") && (rhs.size() > 1 || 
+                if (!rhs.get(0).equals("lambda") && !(rhs.size() < 2 && 
                     Character.isLowerCase(rhs.get(0).charAt(0)))) {
                     // Add production to the new rhs
                     newRhs.add(rhs);
@@ -148,7 +148,6 @@ public class NullProductionEliminator {
             if (newRhs.size() > 0) {
                 newNewGrammar.put(lhs, newRhs);
             }         
-            // System.out.println();
         }
 
         return newNewGrammar;
