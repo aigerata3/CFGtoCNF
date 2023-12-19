@@ -25,7 +25,7 @@ The program accepts input in a .txt file format. They should be placed in the in
 
 - Variables: Any capital letter followed by any reasonable number of digits (e.g., B or G232).
 - Terminals: Any lowercase letter followed by any reasonable number of digits (e.g., c or a1).
-- Productions: Only production per line, please. The left-hand side (LHS) and right-hand side (RHS) of a production should be separated by an arrow (->). Symbols on the RHS should be separated by commas (,). Each production should be on a new line.
+- Productions: Only production per line, please. The left-hand side (LHS) and right-hand side (RHS) of a production should be separated by an arrow (->). Symbols on the RHS should be separated by commas (,). Each production should be on a new line. Please avoid extra spaces.
 
 ## Example Input:
 ```
@@ -35,7 +35,7 @@ S -> lambda
 A -> c,A,c
 A -> lambda
 B -> d
-A -> l, A
-S -> f, C
-C -> d, S
+A -> l,A
+S -> f,C
+C -> d,S
 ```
